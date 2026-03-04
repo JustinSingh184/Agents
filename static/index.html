@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Tool Agent</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <h2>Compare Tool Agent</h2>
+            <button id="killServerBtn" class="danger-btn" onclick="handleKillServer()">Kill Server</button>
+        </div>
+        
+        <div class="import-group">
+            <input type="file" id="file1Input" hidden accept=".csv,.xlsx,.xls">
+            <button onclick="document.getElementById('file1Input').click()">Import File 1</button>
+            <input type="file" id="file2Input" hidden accept=".csv,.xlsx,.xls">
+            <button onclick="document.getElementById('file2Input').click()">Import File 2</button>
+        </div>
+    </div>
+
+    <div class="controls">
+        <label for="rowKeySelect">Row Alignment Key:</label>
+        <select id="rowKeySelect">
+            <option value="">(Select a file first)</option>
+        </select>
+
+        <label>
+            <input type="checkbox" id="useLlmToggle" checked> Use LLM smart matching
+        </label>
+
+        <button id="compareBtn" disabled onclick="handleCompare()">Compare</button>
+        <button id="exportBtn" disabled onclick="handleExport()">Export Diff Report</button>
+    </div>
+
+    <div id="summaryBar" class="summary-bar">
+        Load two files to begin comparison.
+    </div>
+
+    <div id="llmSummary" style="padding: 0 2rem; font-style: italic; font-size: 0.9rem; color: #666; background: var(--header-bg); border-bottom: 1px solid var(--border-color);"></div>
+
+    <div class="main-content">
+        <div class="table-panel" id="panel1">
+            <h3>File 1 (Removed/Changed)</h3>
+            <div id="table1Container"></div>
+        </div>
+        <div class="table-panel" id="panel2">
+            <h3>File 2 (Added/Changed)</h3>
+            <div id="table2Container"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <style>
+        .danger-btn {
+            background-color: #dc3545;
+            color: white;
+            border: 1px solid #b02a37;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .danger-btn:hover {
+            background-color: #bb2d3b;
+        }
+    </style>
+</body>
+</html>
